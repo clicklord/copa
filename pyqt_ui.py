@@ -77,6 +77,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.horizontalLayout_3.setSpacing(3)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.lineEditSearch = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEditSearch.setClearButtonEnabled(True)
         self.lineEditSearch.setObjectName("lineEditSearch")
         self.verticalLayout_2.addWidget(self.lineEditSearch)
         self.listView = QtWidgets.QListView(self.centralwidget)
@@ -223,12 +224,22 @@ class MainWindow(QtWidgets.QMainWindow):
             self.sqlModel.select()
             self.listView.setModelColumn(1)
         elif self.lineEditSearch.text() != 'search here':
-            searchText = "keyword LIKE '%" + self.lineEditSearch.text() + "%'"
+            searchString = self.lineEditSearch.text().strip()
+            searchStrings = searchString.split(' ')
+            lenSearchStrings = len(searchStrings)
+            searchText = "keyword LIKE '%" + searchStrings[0] + "%'"
+            for i in range(1,lenSearchStrings):
+                searchText =  searchText + " OR keyword LIKE '%" + searchStrings[i] + "%'"
             self.sqlModel.setFilter(searchText)
 
     def lineEditSearch_textChanged(self,text):
         if text != '' or text != 'search here':
-            searchText = "keyword LIKE '%" + self.lineEditSearch.text() + "%'"
+            searchString = self.lineEditSearch.text().strip()
+            searchStrings = searchString.split(' ')
+            lenSearchStrings = len(searchStrings)
+            searchText = "keyword LIKE '%" + searchStrings[0] + "%'"
+            for i in range(1,lenSearchStrings):
+                searchText =  searchText + " OR keyword LIKE '%" + searchStrings[i] + "%'"
             self.sqlModel.setFilter(searchText)
         else:
             self.sqlModel.setTable("shabl")
