@@ -7,3 +7,5 @@ You can build onefile *.exe
 Place near new *.exe 'icon.png'
 ## Requirements
 PyQt v5.5, Python v.3.4
+## Link to post about
+https://infostart.ru/public/600733/
