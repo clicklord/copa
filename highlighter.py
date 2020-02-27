@@ -80,9 +80,9 @@ class MyHighlighterCpp(QSyntaxHighlighter):
             startIndex = self.commentStartExpression.indexIn(text,
                     startIndex + commentLength)
 
-class MyHighlighter1C(QSyntaxHighlighter):
+class Highlighter1C(QSyntaxHighlighter):
     def __init__(self, parent=None):
-        super(MyHighlighter1C, self).__init__(parent)
+        super(Highlighter1C, self).__init__(parent)
 
         keywordFormat = QTextCharFormat()
         keywordFormat.setForeground(Qt.red)

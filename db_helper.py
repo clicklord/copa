@@ -1,7 +1,7 @@
 import sqlite3 as sqlite
 import os
 import pickle
-class MyDBCon():
+class DBHelper():
 
     def __init__(self):
         self.settings_file='settings.pkl'

@@ -19,7 +19,7 @@ class LineNumberArea(QWidget):
         self.myeditor.lineNumberAreaPaintEvent(event)
 
 
-class MyCodeEditor(QPlainTextEdit):
+class CodeEditor(QPlainTextEdit):
     def __init__(self,parent_widget):
         super().__init__(parent_widget)
         self.lineNumberArea = LineNumberArea(self)

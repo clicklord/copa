@@ -7,10 +7,10 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from my_search_intext import My_Search_InText
+from search_in_text import Search_InText
 import os
 
-class MyUi_Dialog(QtWidgets.QDialog):
+class Ui_Dialog(QtWidgets.QDialog):
     def __init__(self,parent,flags,settings):
         super().__init__(parent,flags)
         self.settings = settings
@@ -34,9 +34,6 @@ class MyUi_Dialog(QtWidgets.QDialog):
         self.label = QtWidgets.QLabel(self)
         self.label.setGeometry(QtCore.QRect(10, 10, 71, 16))
         self.label.setObjectName("label")
-        # self.create_Btn = QtWidgets.QPushButton(self)
-        # self.create_Btn.setGeometry(QtCore.QRect(10, 60, 91, 31))
-        # self.create_Btn.setObjectName("create_Btn")
         self.create_Btn = self.buttonBox.addButton('Create new base',QtWidgets.QDialogButtonBox.ApplyRole)
 
         self.lineEdit_basepath.setText(self.filename[0])
@@ -72,12 +69,11 @@ class MyUi_Dialog(QtWidgets.QDialog):
         self.setWindowTitle(_translate("Dialog", "Settings"))
         self.select_base_Btn.setText(_translate("Dialog", "..."))
         self.label.setText(_translate("Dialog", "Current base:"))
-        # self.create_Btn.setText(_translate("Dialog", "Create new base"))
 
-class MyUi_FindDialog(QtWidgets.QDialog):
-    def __init__(self,parent,flags,My_Search):
+class Ui_FindDialog(QtWidgets.QDialog):
+    def __init__(self,parent,flags,Search_In_Text):
         super().__init__(parent,flags)
-        self.My_Search = My_Search
+        self.Search_In_Text = Search_In_Text
         self.setupUi()
 
     def setupUi(self):
@@ -107,13 +103,6 @@ class MyUi_FindDialog(QtWidgets.QDialog):
         self.buttonBox.rejected.connect(self.reject)
         self.findnext_Btn.clicked.connect(self.acceptNext)
 
-        # shortcut = QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_F3), self)
-        # # shortcut = QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_F3), self, QtCore.SLOT(self.acceptNext))
-        # self.setShortcutEnabled(shortcut.id(),True)
-        # findNext_ = QtWidgets.QAction('&FindNext', self)
-        # findNext_.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_F3))
-        # findNext_.triggered.connect(self.acceptNext)
-
         find_ = QtWidgets.QAction('&Find', self)
         find_.setShortcut(self.tr("Enter"))
         find_.triggered.connect(self.accept)
@@ -121,8 +110,6 @@ class MyUi_FindDialog(QtWidgets.QDialog):
         QtCore.QMetaObject.connectSlotsByName(self)
         self.setTabOrder(self.lineEdit_search, self.findnext_Btn)
         self.setTabOrder(self.findnext_Btn, self.buttonBox)
-    # def exec(self):
-    #     return 1
 
     def keyPressEvent(self, e):
         if e.key() == QtCore.Qt.Key_F3:
@@ -131,13 +118,13 @@ class MyUi_FindDialog(QtWidgets.QDialog):
             super().keyPressEvent(e)
 
     def accept(self):
-        self.My_Search.setSearchText(self.lineEdit_search.text())
-        self.My_Search.search()
+        self.Search_In_Text.setSearchText(self.lineEdit_search.text())
+        self.Search_In_Text.search()
         self.close()
 
     def acceptNext(self):
-        self.My_Search.setSearchText(self.lineEdit_search.text())
-        self.My_Search.searchNext()
+        self.Search_In_Text.setSearchText(self.lineEdit_search.text())
+        self.Search_In_Text.searchNext()
         self.close()
 
     def reject(self):

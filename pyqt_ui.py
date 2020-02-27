@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 import sys
 import string
-from my_dbmethods import MyDBCon
-from my_codeeditor import MyCodeEditor
-from my_highlighter import MyHighlighter1C
-from my_dialog import MyUi_Dialog, MyUi_FindDialog
-from my_search_intext import My_Search_InText
+from db_helper import DBHelper
+from code_editor import CodeEditor
+from highlighter import Highlighter1C
+from ui_forms import Ui_Dialog, Ui_FindDialog
+from search_in_text import Search_InText
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql    
 class MainWindow(QtWidgets.QMainWindow):
     
     def __init__(self):
         super().__init__()
-        self.appSettings = MyDBCon()       
+        self.appSettings = DBHelper()       
         self.setupUi()
 
 
@@ -64,7 +64,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.lineEdit.setObjectName("lineEdit")
         self.verticalLayout.addWidget(self.lineEdit)
         #self.textEdit = QtWidgets.QPlainTextEdit (self.centralwidget)
-        self.textEdit = MyCodeEditor (self.centralwidget)
+        self.textEdit = CodeEditor (self.centralwidget)
         self.textEdit.setObjectName("textEdit")
         self.verticalLayout.addWidget(self.textEdit)
         self.verticalLayout_3.addLayout(self.verticalLayout)
@@ -139,7 +139,7 @@ class MainWindow(QtWidgets.QMainWindow):
         help_menu.addAction(about_)
 
         #highlighte syntax
-        self.highlighter = MyHighlighter1C(self.textEdit.document())
+        self.highlighter = Highlighter1C(self.textEdit.document())
         
         #font edit
         font10 = QtGui.QFont('Courier New',10)
@@ -169,8 +169,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.lineEditSearch.returnPressed.connect(self.lineEditSearch_editingFinished)
         self.lineEditSearch.textChanged.connect(self.lineEditSearch_textChanged)
         
-        self.Search_InText = My_Search_InText()
-        self.ModalDialog_find = MyUi_FindDialog(self,QtCore.Qt.Window,self.Search_InText)
+        self.Search_InText = Search_InText()
+        self.ModalDialog_find = Ui_FindDialog(self,QtCore.Qt.Window,self.Search_InText)
         self.ModalDialog_find.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.MSWindowsFixedSizeDialogHint)
 
         #minimize to tray
@@ -250,7 +250,7 @@ class MainWindow(QtWidgets.QMainWindow):
     #show modal dialog with settings
     def showSettingsForm(self):
         self.currbase = self.appSettings.baseFile()
-        self.ModalDialog_center = MyUi_Dialog(self,QtCore.Qt.Window,self.appSettings)
+        self.ModalDialog_center = Ui_Dialog(self,QtCore.Qt.Window,self.appSettings)
         self.ModalDialog_center.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.MSWindowsFixedSizeDialogHint)
         self.ModalDialog_center.exec_()
         if self.currbase != self.appSettings.baseFile():

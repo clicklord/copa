@@ -1,4 +1,4 @@
-class My_Search_InText():
+class Search_InText():
     def __init__(self, current_text = '', current_pos = 0, search_text = ''):
         self.textFind = current_text.lower()
         self.curr_pos = current_pos
